@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>NeverLost</title>
+        <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/heatmap.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>NeverLost</h1>
+            </div>
+            <div class="nav-menu">
+                <button class="nav-btn active" data-view="study">Study</button>
+                <button class="nav-btn" data-view="create">Create</button>
+                <button class="nav-btn" data-view="stats">Stats</button>
+            </div>
+        </nav>
+
+        <!-- Workspace Selector -->
+        <div class="workspace-bar">
+            <div class="workspace-tabs" id="workspace-tabs"></div>
+            <button class="workspace-add-btn" id="add-workspace-btn" title="New Workspace">+</button>
+        </div>
+
+        <!-- Study View -->
+        <section id="study-view" class="view active">
+            <div class="container">
+                <div class="study-header">
+                    <h2>Today's Review</h2>
+                    <div class="queue-info">
+                        <span id="cards-remaining">0</span> cards due
+                    </div>
+                </div>
+
+                <div id="study-area" class="study-area">
+                    <!-- Card appears here -->
+                    <div id="card-display" class="card-display hidden">
+                        <!-- Phase 1: Show question, user types answer -->
+                        <div id="card-question" class="card-question">
+                            <div class="card-label">Concept</div>
+                            <h3 id="card-concept" class="card-concept"></h3>
+                            
+                            <div class="card-label">Hint</div>
+                            <p id="card-trigger" class="card-trigger"></p>
+                            
+                            <div class="card-label">Your Answer</div>
+                            <textarea id="user-answer" class="user-answer-input" 
+                                placeholder="Type your answer here..." 
+                                rows="3"></textarea>
+                            
+                            <button id="submit-answer-btn" class="btn btn-primary">Check Answer</button>
+                        </div>
+
+                        <!-- Phase 2: Show result and correct answer -->
+                        <div id="card-result" class="card-result hidden">
+                            <!-- Accuracy Score -->
+                            <div id="accuracy-display" class="accuracy-display">
+                                <div class="accuracy-circle">
+                                    <span id="accuracy-score">0</span>%
+                                </div>
+                                <div id="accuracy-label" class="accuracy-label">Match</div>
+                            </div>
+
+                            <div class="answer-comparison">
+                                <div class="your-answer-section">
+                                    <div class="card-label">Your Answer</div>
+                                    <p id="user-answer-display" class="user-answer-display"></p>
+                                </div>
+                                
+                                <div class="correct-answer-section">
+                                    <div class="card-label">Correct Answer</div>
+                                    <!-- Scratch to reveal -->
+                                    <div id="answer-container" class="answer-container">
+                                        <div class="answer-text" id="card-answer"></div>
+                                        <div class="scratch-overlay" id="scratch-overlay">
+                                            <canvas id="scratch-canvas" class="scratch-canvas"></canvas>
+                                            <div class="scratch-hint">Scratch to reveal</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-actions">
+                                <button id="wrong-btn" class="btn btn-wrong">I was wrong</button>
+                                <button id="correct-btn" class="btn btn-correct">I knew it!</button>
+                            </div>
+                        </div>
+                    </div>
+
+    <!--empty state-->
+    <div id="empty-state" class="empty-state">
+        <div class="empty-icon">Done</div>
+        <h3>All Done</h3>
+        <p>No cards due right now, take a break.</p>
+        <p>Come back tomorrow, or create new cards.</p>
+    </div>
+    </div>
+       <!--Study Stats Bar -->
+       <div class="study-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Streak</span>
+                        <span class="stat-value" id="current-streak">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Today</span>
+                        <span class="stat-value" id="today-count">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="accuracy">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create View -->
+         <section id="create-view" class="view">
+<div class="container">
+    <h2>Create New Card</h2>
+    <form id="create-form" class="create-form">
+                    <div class="form-group">
+                        <label for="input-workspace">Workspace</label>
+                        <select id="input-workspace" class="workspace-select"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="input-concept">Concept</label>
+                        <input 
+                            type="text" 
+                            id="input-concept" 
+                            placeholder="e.g., Photosynthesis"
+                            required
+                        >
+</div>
+ <div class="form-group">
+                        <label for="input-trigger">Hint</label>
+                        <input 
+                            type="text" 
+                            id="input-trigger" 
+                            placeholder="e.g., What do plants produce from light?"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="input-answer">Answer</label>
+                        <textarea 
+                            id="input-answer" 
+                            rows="4"
+                            placeholder="e.g., Plants use light energy to convert CO2 and water into glucose and oxygen"
+                            required
+                        ></textarea>
+                    </div>
+<button type="submit" class="btn btn-primary btn-block">Create Card</button>
+                </form>
+           <div class="recent-cards">
+                    <h3>Recent Cards</h3>
+                    <div id="recent-cards-list"></div>
+                </div>
+            </div>     
+         </section>
+
+         <!-- Stats View -->
+          <section id="stats-view" class="view">
+            <div class="container">
+                <h2>Your Progress</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-label">Total Cards</div>
+                        <div class="stat-card-value" id="total-cards">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Mastered</div>
+                        <div class="stat-card-value" id="mastered-cards">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Learning</div>
+                        <div class="stat-card-value" id="learning-cards">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-label">Best Streak</div>
+                        <div class="stat-card-value" id="best-streak">0</div>
+                    </div>
+                </div>
+
+
+                <!-- Heatmap-->
+                 <div class="heatmap-section">
+                    <h3>Study Heatmap</h3>
+                    <div id="heatmap-container"></div>
+                    </div>
+                    <div class="boxes-section">
+                        <h3>Leitner Boxes</h3>
+                        <div id="boxes-visulization"> </div>
+
+                    </div>
+                    <div class="curve-section">
+                        <h3>Memory Retention Curve</h3>
+                        <canvas id="forgetting-curve" width="600" height="300"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Toast Container -->
+        <div id="toast-container"></div>
+
+        <!-- Scripts -->
+        <script src="js/storage.js"></script>
+        <script src="js/card.js"></script>
+        <script src="js/scheduler.js"></script>
+        <script src="js/scratch.js"></script>
+        <script src="js/heatmap.js"></script>
+        <script src="js/stats.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>

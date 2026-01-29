@@ -1,0 +1,210 @@
+/* Animations for NeverLost */
+
+/* Card entrance animation */
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-0.5deg);
+  }
+}
+
+@keyframes cardSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+}
+
+.card-display {
+  animation: cardSlideIn 0.4s ease-out;
+}
+
+/* Reveal animation */
+@keyframes revealFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-back:not(.hidden) {
+  animation: revealFade 0.3s ease-out;
+}
+
+/* Button press effect */
+@keyframes buttonPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.btn:active {
+  animation: buttonPress 0.15s ease;
+}
+
+/* Success pulse */
+@keyframes successPulse {
+  0% { box-shadow: 0 0 0 0 rgba(81, 207, 102, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(81, 207, 102, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(81, 207, 102, 0); }
+}
+
+.btn-correct:hover {
+  animation: successPulse 1s infinite;
+}
+
+/* Error shake */
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.btn-wrong:hover {
+  animation: errorShake 0.5s ease;
+}
+
+/* Toast slide in */
+@keyframes toastSlideIn {
+  from {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(400px);
+    opacity: 0;
+  }
+}
+
+.toast.show {
+  animation: toastSlideIn 0.3s ease-out forwards;
+}
+
+/* Stat card bounce */
+@keyframes statBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.stat-card:hover {
+  animation: statBounce 0.5s ease;
+}
+
+/* Heatmap cell pop */
+@keyframes cellPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.heatmap-cell:hover {
+  animation: cellPop 0.3s ease;
+}
+
+/* Nav button wiggle */
+@keyframes navWiggle {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+
+.nav-btn:hover:not(.active) {
+  animation: navWiggle 0.3s ease;
+}
+
+/* Empty state float */
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.empty-state .empty-icon {
+  animation: emptyFloat 3s ease-in-out infinite;
+}
+
+/* Box card highlight */
+@keyframes boxHighlight {
+  0% { box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05); }
+  50% { box-shadow: 5px 5px 0 rgba(102, 126, 234, 0.2); }
+  100% { box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.05); }
+}
+
+.box-card:hover {
+  animation: boxHighlight 0.5s ease;
+}
+
+/* Recent card slide */
+@keyframes recentSlide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.recent-card {
+  animation: recentSlide 0.3s ease-out;
+}
+
+.recent-card:nth-child(1) { animation-delay: 0s; }
+.recent-card:nth-child(2) { animation-delay: 0.05s; }
+.recent-card:nth-child(3) { animation-delay: 0.1s; }
+.recent-card:nth-child(4) { animation-delay: 0.15s; }
+.recent-card:nth-child(5) { animation-delay: 0.2s; }
+
+/* Fade in for views */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.view.active {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Loading spinner (utility) */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Scratch reveal shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.scratch-canvas {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='12' fill='%23667eea' opacity='0.5'/%3E%3C/svg%3E") 16 16, pointer;
+}
