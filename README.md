@@ -82,6 +82,7 @@ User Action → NeverLostApp → MemoryScheduler (calculates next review)
 - [Spaced Repetition](https://en.wikipedia.org/wiki/Spaced_repetition)
 - [Active Recall](https://en.wikipedia.org/wiki/Active_recall)
 
+Declaration : Ai was used for BugFixes and Logic 
 ---
 
 ## 📄 License
